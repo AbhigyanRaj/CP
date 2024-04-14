@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int t;
+    cout << "Enter the number of test cases: ";
+    cin >> t;
+
+    string results[100];
+
+    for (int i = 0; i < t; ++i) {
+        int a, b, c;
+
+        cout << "Enter a: ";
+        cin >> a;
+
+        cout << "Enter b: ";
+        cin >> b;
+
+        cout << "Enter c: ";
+        cin >> c;
+
+        if (a < b && b < c) {
+            results[i] = "STAIR";
+        } else if (a < b && c < b) {
+            results[i] = "PEAK";
+        } else {
+            results[i] = "NONE";
+        }
+    }
+
+    cout << "Results:\n";
+    for (int i = 0; i < t; ++i) {
+        cout << results[i] << endl;
+    }
+
+    return 0;
+}
