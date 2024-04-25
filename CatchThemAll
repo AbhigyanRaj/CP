@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t; 
+    cin >> t;
+    
+    while(t--){
+        int N;
+        int x;
+        int y;
+        int total = 0; // Initialize total
+        
+        cin >> N >> x >> y; // Read N, x, and y
+        
+        int arr[N]; // Declare arr outside the loop
+        
+        for(int i = 0; i < N; i++){
+            cin >> arr[i];
+            
+            if((arr[i]*x)<y){
+                total = total + (x * arr[i]);
+            }
+            else{
+                total = total + y;
+            }
+        }
+        
+        cout << total << endl; // Print total after the loop
+    }
+    return 0;
+}
