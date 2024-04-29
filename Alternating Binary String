@@ -14,6 +14,10 @@ int main() {
     int t;
     cout << "Enter the Number of test cases: ";
     cin >> t;
+  
+    string binaryNumbers = "";
+    string changes = "";
+
     while (t--) {
         int count = 0;
         int n;
@@ -22,29 +26,33 @@ int main() {
         string bin = "";
         for (int i = 0; i < n; i++) {
             string digi;
-            cout << "Enter the " << i + 1 << " element: ";
+            
             cin >> digi;
             bin += digi;
         }
-        cout << "Your Binary Number is: " << bin << endl;
+        binaryNumbers += bin + "\n"; 
+
         if (n < 2) {
-            cout << 0 << endl;
+            changes += "0\n"; 
         } else {
             for (int i = 1; i < n ; i++) {
                 if (bin[i] == bin[i - 1]) {
                     count++;
                     for (int j = i ; j < n; j++) {
                         change(bin[j]);
-                        
                     }
-                  cout<<"Your iterated bin : "<<bin<<endl;
-                } 
-                else {
+                    cout<<"Your iterated bin : "<<bin<<endl;
+                } else {
                     break; 
                 }
             }
+            changes += to_string(count) + "\n"; 
         }
-        cout <<"Number of chnges : " <<count << endl;
     }
+
+    
+
+    cout << "Number of changes:\n" << changes;
+
     return 0;
 }
