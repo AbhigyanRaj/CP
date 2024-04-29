@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+
+        if (n > m) {
+            cout << "Yes";
+        } else {
+            string n_str = to_string(n);
+            string m_str = to_string(m);
+            bool found = false; // to track if any comparison results in "Yes"
+            
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) { 
+                    if (n_str[i] > m_str[j]) { 
+                        cout << "Yes";
+                        found = true;
+                        break; 
+                    }
+                }
+                if (found) break; 
+            }
+            
+            if (!found) { 
+                cout << "No";
+            }
+        }
+        cout << endl;
+    }
+    return 0;
+}
