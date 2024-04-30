@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isEighthPower(int number) {
+    double root = pow(number, 1.0 / 8);
+    return floor(root) == root; 
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while(t--) {
+        int n;
+        cin >> n;
+        int arr[n];
+        int product = 1;
+        for(int i = 0 ; i < n ; i++) {
+            cin >> arr[i];
+        }
+        
+        for(int i = 0 ; i < n ; i++) {
+            product *= arr[i];
+        }
+        
+        if(isEighthPower(product)) { 
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+        }
+    }
+    return 0;
+}
