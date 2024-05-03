@@ -1,0 +1,145 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+void merge(int arr[], int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    int L[n1], R[n2];
+
+    for (int i = 0; i < n1; ++i)
+        L[i] = arr[left + i];
+    for (int j = 0; j < n2; ++j)
+        R[j] = arr[mid + 1 + j];
+
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (L[i] >= R[j]) {
+            arr[k++] = L[i++];
+        } else {
+            arr[k++] = R[j++];
+        }
+    }
+
+    while (i < n1) {
+        arr[k++] = L[i++];
+    }
+
+    while (j < n2) {
+        arr[k++] = R[j++];
+    }
+}
+
+void mergeSort(int arr[], int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+        merge(arr, left, mid, right);
+    }
+}
+
+int main() {
+    int T;
+    cout << "Enter the number of test cases: ";
+    cin >> T;
+    while (T--) {
+        int n, m;
+        cout << "Enter the number of batsmen and bowlers: ";
+        cin >> n >> m;
+
+        int batsmen[n];
+        int bowlers[m];
+
+        cout << "Enter the skill levels of batsmen: ";
+        for (int i = 0; i < n; ++i) {
+            cin >> batsmen[i];
+        }
+
+        cout << "Enter the skill levels of bowlers: ";
+        for (int i = 0; i < m; ++i) {
+            cin >> bowlers[i];
+        }
+
+        sort(batsmen, batsmen + n, greater<int>());
+        sort(bowlers, bowlers + m, greater<int>());
+
+        cout << "Batsmen array: ";
+        for (int i = 0; i < n; ++i) {
+            cout << batsmen[i] << " ";
+        }
+        cout << endl;
+
+        cout << "Bowlers array: ";
+        for (int i = 0; i < m; ++i) {
+            cout << bowlers[i] << " ";
+        }
+        cout << endl;
+
+        int z = n + m;
+        if (n < 4 || m < 4 || z < 11) {
+            cout << -1 << endl;
+            continue;
+        }
+
+        int max_skill = 0;
+        for (int i = 0; i < 4; ++i) {
+            max_skill += batsmen[i];
+        }
+        for (int i = 0; i < 4; ++i) {
+            max_skill += bowlers[i];
+        }
+
+        int remaining_batsmen[n - 4];
+        int remaining_bowlers[m - 4];
+
+        for (int i = 4; i < n; ++i) {
+            remaining_batsmen[i - 4] = batsmen[i];
+        }
+
+        for (int i = 4; i < m; ++i) {
+            remaining_bowlers[i - 4] = bowlers[i];
+        }
+
+        mergeSort(remaining_batsmen, 0, n - 5);
+        mergeSort(remaining_bowlers, 0, m - 5);
+
+        cout << "Remaining Batsmen array: ";
+        for (int i = 0; i < n - 4; ++i) {
+            cout << remaining_batsmen[i] << " ";
+        }
+        cout << endl;
+
+        cout << "Remaining Bowlers array: ";
+        for (int i = 0; i < m - 4; ++i) {
+            cout << remaining_bowlers[i] << " ";
+        }
+        cout << endl;
+
+        int total[n + m - 8];
+        int k = 0;
+        for (int i = 0; i < n - 4; ++i) {
+            total[k++] = remaining_batsmen[i];
+        }
+        for (int i = 0; i < m - 4; ++i) {
+            total[k++] = remaining_bowlers[i];
+        }
+
+        mergeSort(total, 0, k - 1);
+
+        cout << "Total array: ";
+        for (int i = 0; i < k; ++i) {
+            cout << total[i] << " ";
+        }
+        cout << endl;
+
+        for (int i = 0; i < min(3, k); ++i) {
+            max_skill += total[i];
+        }
+
+        cout << "Maximum skill level possible: " << max_skill << endl;
+    }
+
+    return 0;
+}
